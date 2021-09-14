@@ -1,0 +1,10 @@
+#friends-wrapper {
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 80vh;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(218, 220, 224, 0.5);
+}
