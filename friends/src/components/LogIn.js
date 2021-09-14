@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useHistory } from 'react-router';
+
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export default function LogIn() {
     const [state, setState] = useState({
-        credential: {
+        credentials: {
             username: '',
             password: ''
-        }
-
+        },
+        isLogIn: false,
+        error: ''
     })
+
+    const { push } = useHistory();
 
     const handleChange = e => {
         setState({
             ...state,
-            credential: {
-                ...state.credential,
+            credentials: {
+                ...state.credentials,
                 [e.target.name]: e.target.value
             }
         })
@@ -22,25 +27,47 @@ export default function LogIn() {
 
     const submit = e => {
         e.preventDefault();
-        //send POST request to receive JWT Token from API
-        //handle the token in App
-        // axios.post('http://localhost:5000/api/login',)
+
+        axiosWithAuth()
+            .post('/api/login', state.credentials)
+            .then(res => {
+                localStorage.setItem('token', res.data.payload);
+                push('/')
+            })
+            .catch(err => {
+                setState({
+                    ...state,
+                    error: err.response.data.error
+                })
+            })
     }
 
-console.log(state)
+    console.log(state)
 
     return (
         <div className='login-form-container'>
             <h1>Welcome</h1>
             <form id='login-form' onSubmit={submit}>
                 <label>Username
-                    <input name='username' type='text' value={state.credential.username} onChange={handleChange} />
+                    <input
+                        name='username'
+                        type='text'
+                        value={state.credentials.username}
+                        onChange={handleChange}
+                    />
                 </label>
                 <label>Password
-                    <input name='password' type='text' value={state.credential.password} onChange={handleChange} />
+                    <input
+                        name='password'
+                        type='text'
+                        value={state.credentials.password}
+                        onChange={handleChange}
+                    />
                 </label> <br />
+                <p style={{ color: "red" }}>{state.error}</p>
                 <button>Log in</button>
             </form>
+
         </div>
     )
 }

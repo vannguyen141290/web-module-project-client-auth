@@ -2,6 +2,7 @@
 @import 'FriendList.css';
 @import "Friend.css";
 @import 'LogIn.css';
+@import 'Home.css';
 
 body {
   margin: 0;

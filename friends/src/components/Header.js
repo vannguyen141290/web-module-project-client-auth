@@ -7,7 +7,7 @@ export default function Header() {
         <header className="navBar-wrapper">
             <div className='navBar'>
                 <div className='logo'>
-                    Welcome to my Friends List
+                    <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>Welcome to my Friends List</Link>
                 </div>
 
                 <ul className='nav-bar_nav'>

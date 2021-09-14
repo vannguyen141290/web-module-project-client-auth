@@ -1,51 +1,37 @@
-import React from 'react';
-import Friend from './Friend'
+import React, { useEffect, useState } from 'react';
+import Friend from './Friend';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 
 export default function FriendList() {
-    const friends = [
-        {
-          id: 1,
-          name: 'Rachel Green',
-          age: 30,
-          email: 'rachel@friends.com'
-        },
-        {
-          id: 2,
-          name: 'Joey Tribbiani',
-          age: 34,
-          email: 'joey@friends.com'
-        },
-        {
-          id: 3,
-          name: 'Chandler Bing',
-          age: 32,
-          email: 'chandler@friends.com'
-        },
-        {
-          id: 4,
-          name: 'Ross Geller',
-          age: 32,
-          email: 'ross@friends.com'
-        },
-        {
-          id: 5,
-          name: 'Monica Bing',
-          age: 31,
-          email: 'monica@friends.com'
-        },
-        {
-          id: 6,
-          name: 'Phoebe Buffay-Hannigan',
-          age: 30,
-          email: 'phoebe@friends.com'
-        }
-      ];
+  const [friends, setFriends] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(false);
 
-    return (
-        <div id='friends-wrapper'>
-            {friends.map(friend => <Friend key={friend.id} friend={friend}/> )}
-        </div>
-    )
+  useEffect(() => {
+    getData();
+  }, [])
+
+  const getData = () => {
+    setIsLoading(true)
+    axiosWithAuth()
+      .get('/api/friends')
+      .then(res => {
+        setIsLoading(false)
+        setFriends(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false)
+      })
+  }
+
+
+  return (
+    isLoading
+    ? <div style={{ fontSize: '3rem', padding: '50px', textAlign: 'center'}}>Loading friends list...</div>
+    : <div id='friends-wrapper'>
+        {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
+      </div>
+  )
 }
 
