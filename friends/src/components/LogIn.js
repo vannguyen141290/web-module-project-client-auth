@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-export default function LogIn() {
+export default function LogIn(props) {
     const [state, setState] = useState({
         credentials: {
             username: '',
@@ -32,6 +32,8 @@ export default function LogIn() {
             .post('/api/login', state.credentials)
             .then(res => {
                 localStorage.setItem('token', res.data.payload);
+                localStorage.setItem('username', state.credentials.username)
+                props.setIsLoggedIn(true)
                 push('/')
             })
             .catch(err => {
@@ -41,8 +43,6 @@ export default function LogIn() {
                 })
             })
     }
-
-    console.log(state)
 
     return (
         <div className='login-form-container'>

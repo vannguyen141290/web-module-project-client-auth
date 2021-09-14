@@ -30,6 +30,7 @@ export default function FriendList() {
     isLoading
     ? <div style={{ fontSize: '3rem', padding: '50px', textAlign: 'center'}}>Loading friends list...</div>
     : <div id='friends-wrapper'>
+      <div>List of Firends</div>
         {friends.map(friend => <Friend key={friend.id} friend={friend} />)}
       </div>
   )
