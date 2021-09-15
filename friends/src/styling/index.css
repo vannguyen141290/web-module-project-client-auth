@@ -3,6 +3,7 @@
 @import "Friend.css";
 @import 'LogIn.css';
 @import 'Home.css';
+@import 'AddFriendForm.css';
 
 body {
   margin: 0;

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-export default function LogIn(props) {
+export default function LogIn() {
     const [state, setState] = useState({
         credentials: {
             username: '',
@@ -32,8 +32,9 @@ export default function LogIn(props) {
             .post('/api/login', state.credentials)
             .then(res => {
                 localStorage.setItem('token', res.data.payload);
-                localStorage.setItem('username', state.credentials.username)
-                props.setIsLoggedIn(true)
+                localStorage.setItem('username', state.credentials.username);
+                // localStorage.setItem('isLoggedIn', 'user is currently logged in');
+                // props.setIsLoggedIn(localStorage.getItem('isLoggedIn'))
                 push('/')
             })
             .catch(err => {

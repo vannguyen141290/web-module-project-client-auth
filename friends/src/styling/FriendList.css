@@ -1,3 +1,11 @@
+.friends-list-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+}
+
 #friends-wrapper {
     padding: 50px;
     display: flex;
@@ -7,4 +15,12 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgba(218, 220, 224, 0.5);
+}
+
+#add {
+    border: black solid 1px;
+    padding: 1%;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit
 }
