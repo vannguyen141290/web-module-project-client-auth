@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-export default function LogIn() {
+export default function LogIn(props) {
     const [state, setState] = useState({
         credentials: {
             username: '',
@@ -33,14 +33,13 @@ export default function LogIn() {
             .then(res => {
                 localStorage.setItem('token', res.data.payload);
                 localStorage.setItem('username', state.credentials.username);
-                // localStorage.setItem('isLoggedIn', 'user is currently logged in');
-                // props.setIsLoggedIn(localStorage.getItem('isLoggedIn'))
+                props.setIsLoggedIn(localStorage.getItem('token'));
                 push('/')
             })
             .catch(err => {
                 setState({
                     ...state,
-                    error: err.response.data.error
+                    error: 'username and/or password is not matched'
                 })
             })
     }
@@ -68,7 +67,7 @@ export default function LogIn() {
                 <p style={{ color: "red" }}>{state.error}</p>
                 <button>Log in</button>
             </form>
-
+            {state.error && <div>{state.error}</div>}
         </div>
     )
 }

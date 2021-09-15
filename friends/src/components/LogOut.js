@@ -10,6 +10,7 @@ export default function LogOut(props) {
         .then(res => {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
+            props.setIsLoggedIn(false)
             history.push('/')
         })
         .catch(err => console.log(err))

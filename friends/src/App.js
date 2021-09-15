@@ -13,27 +13,25 @@ import AddFriendForm from './components/AddFriendForm';
 function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
-  // useEffect(() => {
-  //   setIsLoggedIn(localStorage.getItem('token'))
-  // }, [])
-
-  console.log(isLoggedIn)
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem('token'))
+  }, [])
 
   return (
     <div className="App">
 
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn}/>
 
       <main>
         <div className='context-wrapper'>
           <Switch>
 
             <Route path='/login'>
-              <LogIn />
+              <LogIn setIsLoggedIn={setIsLoggedIn}/>
             </Route>
 
             <PrivateRoute path='/logout'>
-              <LogOut />
+              <LogOut setIsLoggedIn={setIsLoggedIn} />
             </PrivateRoute>
 
             <PrivateRoute path='/friends' component={FriendList} />
@@ -41,7 +39,7 @@ function App() {
             <PrivateRoute path='/add' component={AddFriendForm} />
 
             <Route path='/'>
-              <Home />
+              <Home isLoggedIn={isLoggedIn} />
             </Route>
 
           </Switch>
