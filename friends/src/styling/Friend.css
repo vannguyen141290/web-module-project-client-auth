@@ -1,0 +1,7 @@
+.friend-card {
+    padding: 20px;
+    width: 30%;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px 12px rgba(77, 144, 142, 0.5);
+}
